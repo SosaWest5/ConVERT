@@ -1,0 +1,14 @@
+ConVERT is an independent project, not affiliated with YouTube, FL Studio, Image-Line, or the upstream engine projects.
+
+JUCE 8.0.6: https://github.com/juce-framework/JUCE/tree/8.0.6
+License: AGPLv3 or a commercial JUCE license. ConVERT source is provided under AGPLv3-or-later. A proprietary commercial distribution requires appropriate licensing.
+
+yt-dlp: https://github.com/yt-dlp/yt-dlp
+The official standalone binary includes third-party dependencies and notices. Its full upstream THIRD_PARTY_LICENSES.txt and LICENSE are downloaded into tools/licenses during packaging.
+
+Deno: https://github.com/denoland/deno (MIT, with bundled third-party software).
+FFmpeg: https://ffmpeg.org / https://github.com/FFmpeg/FFmpeg
+Windows builds: https://github.com/yt-dlp/FFmpeg-Builds
+The selected GPL FFmpeg build includes upstream licenses and bundled library dependencies. tools/versions.json and ffmpeg-version.txt identify the exact build used. Build recipes and source dependencies are documented in the selected upstream FFmpeg-Builds release. If redistributing the bundled binaries publicly, you are responsible for providing the complete corresponding source for that specific FFmpeg build and dependencies under the applicable licenses; upstream links alone are not a substitute for those obligations.
+
+ConVERT's source-only archive does not redistribute engine binaries. The private GitHub workflow produces a local-use installer; audit third-party license/source requirements before public commercial redistribution.

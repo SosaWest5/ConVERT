@@ -1,0 +1,4 @@
+ConVERT source code is licensed under GNU Affero General Public License version 3 or (at your option) any later version, SPDX-License-Identifier: AGPL-3.0-or-later.
+
+The complete license terms: https://www.gnu.org/licenses/agpl-3.0.html
+This project is distributed without warranty, including without implied warranty of merchantability or fitness for a particular purpose. Third-party components retain their own licenses. Do not remove their notices.
