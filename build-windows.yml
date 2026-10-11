@@ -1,0 +1,40 @@
+name: Build ConVERT for Windows
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure VST3 and standalone application
+        run: cmake -S . -B build -A x64 -DCONVERT_NATIVE_TESTS=ON
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
+      - name: Run tests
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Bundle conversion engines
+        shell: pwsh
+        run: ./scripts/fetch-tools.ps1
+      - name: Test actual WAV and MP3 analysis
+        shell: pwsh
+        run: |
+          & ./build/Release/AnalysisIntegration.exe ./tools/ffmpeg.exe
+          if ($LASTEXITCODE -ne 0) { throw 'Audio analysis integration test failed' }
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $iscc = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (!(Test-Path $iscc)) { choco install innosetup --yes --no-progress }
+          & $iscc installer/ConVERT.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ConVERT-Windows-x64-Installer
+          path: dist/ConVERT-Setup-Windows-x64.exe
+          if-no-files-found: error
+          retention-days: 14
